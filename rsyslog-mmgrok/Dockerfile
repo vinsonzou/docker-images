@@ -4,7 +4,7 @@ MAINTAINER Vinson Zou <vinsoncou@gmail.com>
 WORKDIR /root
 COPY rsyslog.repo /etc/yum.repos.d
 
-ENV RSYSLOG_VERSION=v8.18.0 \
+ENV RSYSLOG_VERSION=8.18.0 \
     PKG_CONFIG_PATH=/lib64/pkgconfig/ \
     BASE_PACKAGES="wget git automake libtool autoconf byacc pcre-devel zlib-devel gperf" \
     BUILD_DEP_PACKAGES="libevent-devel tokyocabinet-devel pcre-devel json-c-devel glib2-devel libfastjson-devel libestr-devel liblogging-devel flex" \
@@ -16,8 +16,9 @@ RUN yum -y install $BASE_PACKAGES $INSTALL_PACKAGES $BUILD_DEP_PACKAGES \
     && cd grok && make && make install \
     && cd /usr/lib64 && mv /usr/lib/libgrok.so . && ln -s libgrok.so libgrok.so.1 \
     && cd /root \
-    &&  git clone -b $RSYSLOG_VERSION --depth 1 https://github.com/rsyslog/rsyslog.git \
-    && cd rsyslog \
+    && wget https://github.com/rsyslog/rsyslog/archive/v${RSYSLOG_VERSION}.tar.gz -O rsyslog.tar.gz \
+    && tar zxf rsyslog.tar.gz \
+    && cd rsyslog-${RSYSLOG_VERSION} \
     && ./autogen.sh --enable-mmgrok --disable-uuid --disable-liblogging-stdlog --disable-libgcrypt \
     && make \
     && cd /root \
