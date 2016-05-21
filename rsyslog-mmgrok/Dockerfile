@@ -6,7 +6,7 @@ COPY rsyslog.repo /etc/yum.repos.d
 
 ENV RSYSLOG_VERSION=v8.18.0 \
     PKG_CONFIG_PATH=/lib64/pkgconfig/ \
-    BASE_PACKAGES="wget tar git automake libtool autoconf byacc pcre-devel zlib-devel gperf" \
+    BASE_PACKAGES="wget git automake libtool autoconf byacc pcre-devel zlib-devel gperf" \
     BUILD_DEP_PACKAGES="libevent-devel tokyocabinet-devel pcre-devel json-c-devel glib2-devel libfastjson-devel libestr-devel liblogging-devel flex" \
     INSTALL_PACKAGES="rsyslog"
 
@@ -15,10 +15,12 @@ RUN yum -y install $BASE_PACKAGES $INSTALL_PACKAGES $BUILD_DEP_PACKAGES \
     && git clone https://github.com/jordansissel/grok.git \
     && cd grok && make && make install \
     && cd /usr/lib64 && mv /usr/lib/libgrok.so . && ln -s libgrok.so libgrok.so.1 \
-    && git clone -b ${RSYSLOG_VERSION} --depth 1 https://github.com/rsyslog/rsyslog.git \
+    && cd /root \
+    &&  git clone -b $RSYSLOG_VERSION --depth 1 https://github.com/rsyslog/rsyslog.git \
     && cd rsyslog \
     && ./autogen.sh --enable-mmgrok --disable-uuid --disable-liblogging-stdlog --disable-libgcrypt \
     && make \
+    && cd /root \
     && { \
         echo 'mkdir /data'; \
         echo 'cp rsyslog/contrib/mmgrok/.libs/mmgrok.so /data'; \
