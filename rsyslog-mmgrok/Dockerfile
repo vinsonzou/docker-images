@@ -18,7 +18,8 @@ RUN yum -y install $BASE_PACKAGES $INSTALL_PACKAGES $BUILD_DEP_PACKAGES \
     && cd /root \
     && wget https://github.com/rsyslog/rsyslog/archive/v${RSYSLOG_VERSION}.tar.gz -O rsyslog.tar.gz \
     && tar zxf rsyslog.tar.gz \
-    && cd rsyslog-${RSYSLOG_VERSION} \
+    && mv rsyslog-${RSYSLOG_VERSION} rsyslog \
+    && cd rsyslog \
     && ./autogen.sh --enable-mmgrok --disable-uuid --disable-liblogging-stdlog --disable-libgcrypt \
     && make \
     && cd /root \
@@ -31,4 +32,4 @@ RUN yum -y install $BASE_PACKAGES $INSTALL_PACKAGES $BUILD_DEP_PACKAGES \
     && chmod a+x copy2volume
 
 # copy file to the volume dir
-CMD ["copy2volume"]
+ENTRYPOINT ["copy2volume"]
