@@ -16,20 +16,20 @@ RUN yum -y install $BASE_PACKAGES $INSTALL_PACKAGES $BUILD_DEP_PACKAGES \
     && cd grok && make && make install \
     && cd /usr/lib64 && mv /usr/lib/libgrok.so . && ln -s libgrok.so libgrok.so.1 \
     && cd /root \
-    && wget https://github.com/rsyslog/rsyslog/archive/v${RSYSLOG_VERSION}.tar.gz -O rsyslog.tar.gz \
+    && wget -q https://github.com/rsyslog/rsyslog/archive/v${RSYSLOG_VERSION}.tar.gz -O rsyslog.tar.gz \
     && tar zxf rsyslog.tar.gz \
     && mv rsyslog-${RSYSLOG_VERSION} rsyslog \
     && cd rsyslog \
     && ./autogen.sh --enable-mmgrok --disable-uuid --disable-liblogging-stdlog --disable-libgcrypt \
     && make \
-    && cd /root \
     && { \
-        echo 'mkdir /data'; \
-        echo 'cp rsyslog/contrib/mmgrok/.libs/mmgrok.so /data'; \
+        echo '#!/bin/sh'; \
+        echo 'cp /root/rsyslog/contrib/mmgrok/.libs/mmgrok.so /data'; \
         echo 'cp /usr/lib64/libgrok.so /data'; \
         echo 'cp /usr/share/grok/patterns/base /data'; \
-       } > copy2volume \
-    && chmod a+x copy2volume
+       } > /usr/local/bin/copy2volume \
+    && chmod a+x /usr/local/bin/copy2volume
 
 # copy file to the volume dir
-ENTRYPOINT ["copy2volume"]
+VOLUME ["/data"]
+CMD ["copy2volume"]
