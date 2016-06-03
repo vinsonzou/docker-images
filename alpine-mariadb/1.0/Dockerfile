@@ -1,4 +1,4 @@
-FROM alpine:3.3
+FROM alpine:3.4
 MAINTAINER Vinson Zou <vinsoncou@gmail.com>
 
 ENV TERM dumb   # See https://github.com/dockerfile/mariadb/issues/3
