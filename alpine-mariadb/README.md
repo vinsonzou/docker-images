@@ -4,9 +4,9 @@ This is docker image to run a MariaDB database server.
 
 Image size: 184 MB
 
-From image: alpine:latest
+From image: alpine:3.4
 
-MariaDB Server: 10.1.12
+MariaDB Server: 10.1.14
 
 ## FREE ACCESS to server! Why?
 
