@@ -2,7 +2,7 @@
 
 This is docker image to run a MariaDB database server.
 
-Image size: 184 MB
+[![](https://images.microbadger.com/badges/image/vinsonzou/alpine-mariadb.svg)](http://microbadger.com/images/vinsonzou/alpine-mariadb "Get your own image badge on microbadger.com")
 
 From image: alpine:3.4
 
