@@ -1,4 +1,4 @@
-FROM alpine:3.5
+FROM alpine:3.6
 MAINTAINER Vinson Zou <vinsoncou@gmail.com>
 
 # See https://github.com/dockerfile/mariadb/issues/3
