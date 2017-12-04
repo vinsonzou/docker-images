@@ -4,9 +4,9 @@ This is docker image to run a MariaDB database server.
 
 [![](https://images.microbadger.com/badges/image/vinsonzou/alpine-mariadb.svg)](http://microbadger.com/images/vinsonzou/alpine-mariadb "Get your own image badge on microbadger.com")
 
-From image: alpine:3.5
+From image: alpine:3.7
 
-MariaDB Server: 10.1.20
+MariaDB Server: 10.1.28
 
 ## FREE ACCESS to server! Why?
 
