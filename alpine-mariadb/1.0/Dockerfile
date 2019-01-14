@@ -25,4 +25,5 @@ RUN chmod a+x /usr/local/bin/docker-entrypoint.sh
 ENTRYPOINT ["docker-entrypoint.sh"]
 
 EXPOSE 3306
-CMD ["mysqld"]
+# See https://github.com/docker-library/mariadb/issues/95
+CMD ["mysqld --innodb-flush-method=fsync"]
