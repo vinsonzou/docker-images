@@ -1,4 +1,4 @@
-FROM alpine:3.7
+FROM alpine:3.9
 MAINTAINER Vinson Zou <vinsoncou@gmail.com>
 
 # See https://github.com/dockerfile/mariadb/issues/3
@@ -26,5 +26,6 @@ ENTRYPOINT ["docker-entrypoint.sh"]
 
 EXPOSE 3306
 # See https://github.com/docker-library/mariadb/issues/95
+# https://jira.mariadb.org/browse/MDEV-16015
 #CMD ["mysqld --innodb-flush-method=fsync"]
 CMD ["mysqld"]
